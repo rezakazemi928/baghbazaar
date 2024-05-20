@@ -1,0 +1,29 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+flask = "*"
+sqlalchemy = "*"
+flask-sqlalchemy = "*"
+flask-cors = "*"
+flask-jwt-extended = "*"
+flask-migrate = "==2.7.0"
+python-dotenv = "*"
+psycopg2-binary = "*"
+pre-commit = "*"
+flask-restful = "*"
+flask-marshmallow = "*"
+flask-security = "*"
+bcrypt = "*"
+pika = "*"
+marshmallow-sqlalchemy = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.10"
+
+[pipenv]
+allow_prereleases = true
