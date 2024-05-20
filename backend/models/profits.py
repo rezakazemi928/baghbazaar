@@ -22,4 +22,6 @@ class Profits(db.Model):
         nullable=False,
         unique=False,
     )
-    date_time = db.Column(db.DateTime(timezone=True), nullable=False, default=func.now)
+    date_time = db.Column(
+        db.DateTime(timezone=True), nullable=False, default=func.now()
+    )

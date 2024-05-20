@@ -5,10 +5,8 @@ from marshmallow import fields, pre_load
 from models import Investments
 
 
-class InvestmentsSchema(ma.SQLAlchemyAutoSchema):
-    id = ma.UUID(dump_only=True)
+class InvestmentsSchemaBase(ma.SQLAlchemyAutoSchema):
     end_in = ma.Integer(load_only=True, required=True)
-
     profits = fields.List(
         fields.Nested(
             "ProfitsSchema",
@@ -21,6 +19,15 @@ class InvestmentsSchema(ma.SQLAlchemyAutoSchema):
         allow_none=True,
         required=False,
     )
+
+    class Meta:
+        model = Investments
+        sqla_session = db.session
+        load_instance = True
+
+
+class InvestmentsSchema(InvestmentsSchemaBase):
+    id = ma.UUID(dump_only=True)
 
     class Meta:
         model = Investments

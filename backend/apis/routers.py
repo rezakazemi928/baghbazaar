@@ -1,4 +1,4 @@
-from apis.resources import InvestmentsResource
+from apis.resources import InvestmentsResource, ProfitsResource
 from flask import Blueprint
 from flask_restful import Api
 
@@ -7,3 +7,4 @@ api = Api(blueprint)
 
 
 api.add_resource(InvestmentsResource, "/investments", endpoint="investments")
+api.add_resource(ProfitsResource, "/profits", endpoint="profits")
