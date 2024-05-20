@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta, timezone
 
 from extensions import db, ma
-from marshmallow import fields, pre_load
+from marshmallow import fields, post_dump, pre_load
 from models import Investments
 
 
@@ -42,3 +42,16 @@ class InvestmentsSchema(InvestmentsSchemaBase):
         # del data["end_in"]
 
         return data
+
+    @post_dump
+    def prepare_response(self, response, **kwargs):
+        total = int(response["payment"])
+        total_profit = 0
+        if response["profits"] is not None and len(response["profits"]) != 0:
+            for profit in response["profits"]:
+                total = total + int(profit["amount"])
+                total_profit = total_profit + int(profit["amount"])
+
+        response["total"] = total
+        response["total_profit"] = total_profit
+        return response

@@ -1,0 +1,13 @@
+version: '3.1'
+services:
+  db:
+    image: postgres:12.8-alpine3.14
+    restart: always
+    user: root
+    environment:
+      - POSTGRES_PASSWORD=6o0fHIUW9BApROyKXBmLg
+      - POSTGRES_USER=root
+      - ports=5432
+      - POSTGRES_DB=baghbazaar
+    ports:
+      - "5432:5432"
