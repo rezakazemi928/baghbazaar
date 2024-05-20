@@ -1,10 +1,14 @@
+from datetime import datetime, timedelta, timezone
+
 from extensions import db, ma
-from marshmallow import fields
+from marshmallow import fields, pre_load
 from models import Investments
 
 
 class InvestmentsSchema(ma.SQLAlchemyAutoSchema):
     id = ma.UUID(dump_only=True)
+    end_in = ma.Integer(load_only=True, required=True)
+
     profits = fields.List(
         fields.Nested(
             "ProfitsSchema",
@@ -19,6 +23,15 @@ class InvestmentsSchema(ma.SQLAlchemyAutoSchema):
     )
 
     class Meta:
-        modle = Investments
+        model = Investments
         sqla_session = db.session
         load_instance = True
+
+    @pre_load
+    def prepare_req_data(self, data, **kwargs):
+        data["end_date_time"] = (
+            datetime.now(timezone.utc) + timedelta(seconds=int(data["end_in"]))
+        ).strftime("%Y-%m-%dT%H:%M:%S")
+        # del data["end_in"]
+
+        return data

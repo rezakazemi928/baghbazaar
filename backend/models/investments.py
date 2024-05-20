@@ -18,9 +18,7 @@ class Investments(db.Model):
     name = db.Column(db.String(40), nullable=False, unique=True)
     payment = db.Column(db.String(250), nullable=False)
     start_date_time = db.Column(
-        db.DateTime(timezone=True), nullable=False, default=func.now
+        db.DateTime(timezone=True), nullable=False, default=func.now()
     )
-    end_date_time = db.Column(
-        db.DateTime(timezone=True), nullable=False, default=func.now
-    )
+    end_date_time = db.Column(db.DateTime(timezone=True), nullable=False)
     profits = db.relationship("Profits", backref="profits", lazy=True)

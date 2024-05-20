@@ -1,12 +1,13 @@
 from os import getenv
 
+from apis.routers import blueprint
+from config import Development, Production
 from dotenv import load_dotenv
+from extensions import cors, db, ma, migrate
 from flask import Flask
 
-from config import Development, Production
-from extensions import cors, db, ma, migrate
-
 load_dotenv()
+
 
 def create_app():
     """Create the flask app with related configs"""
@@ -22,4 +23,7 @@ def create_app():
     cors.init_app(app)
     ma.init_app(app)
     migrate.init_app(app, db)
+
+    app.register_blueprint(blueprint)
+
     return app
